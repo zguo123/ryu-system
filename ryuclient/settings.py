@@ -89,7 +89,7 @@ WSGI_APPLICATION = 'ryuclient.wsgi.application'
 # Database
 # https://docs.djangoproject.com/en/3.0/ref/settings/#databases
 
-    DATABASES = {
+DATABASES = {
     'default': dj_database_url.config(
         default=dj_database_url.config('DATABASE_URL')
     )
