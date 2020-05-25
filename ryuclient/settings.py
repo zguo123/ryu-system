@@ -15,7 +15,7 @@ import os
 import dj_database_url
 import django_heroku
 
-django_heroku.settings(locals())
+
 
 
 # Build paths inside the project like this: os.path.join(BASE_DIR, ...)
@@ -142,3 +142,4 @@ LOGOUT_REDIRECT_URL = '/'
 LOGIN_URL = '/auth/login'
 
 CRISPY_TEMPLATE_PACK = 'bootstrap4'
+django_heroku.settings(locals())
