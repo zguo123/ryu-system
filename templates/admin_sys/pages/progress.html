@@ -1,0 +1,126 @@
+{% extends 'maincontent.html' %}
+{% block navbar %}
+    {% include 'admin_sys/components/navbar.html' %}
+{% endblock %}
+{% block maincontent %}
+    <section id="header">
+        <div class="row">
+            <div class="col">
+                <h1><strong>RYU Admin System | </strong>Update Progress<strong>&nbsp;&nbsp;</strong><span
+                        class="badge badge-danger" style="font-size: 34px;">Early Alpha</span>&nbsp;&nbsp;</h1>
+                <h3>On this page, you have the ability to update the project's progress.</h3><span
+                    class="badge badge-primary" style="font-size: 32px;"></span></div>
+        </div>
+    </section>
+    <hr>
+    <section id="project-header">
+        <div class="row">
+            <div class="col">
+                <h1><strong>{{ project.project_name }}</strong><br></h1>
+                <h3>Estimated Time of Completion: <strong>{% if not project.estimated_date_of_completion %}Unknown
+                {% else %}{{ project.estimated_date_of_completion }}{% endif %}</strong></h3>
+                <form id="updateDate">
+                    {% csrf_token %}
+                    <div class="form-row">
+                        <div class="col-xl-8">
+                            <div class="form-group"><input class="form-control form-control-lg" id="date" type="date"></div>
+                        </div>
+                        <div class="col-xl-2">
+                            <div class="form-group">
+                                <button class="btn btn-info btn-lg" id='buttonDate' data='{{ project.id }}' type="submit">Update Date</button>
+                            </div>
+                        </div>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </section>
+    <section>
+        <button class="btn btn-primary btn-lg" id="new-mileston-section" type="button" data-toggle="modal"
+                data-target="#new-milestone">New Milestone
+        </button>
+    </section>
+    <main id="milestones">
+        {% if project.milestones %}
+            {% for milestone in project.milestones.all %}
+                <section id="milestone_{{ milestone.id }}">
+                    <div class="row">
+                        <div class="col">
+                            <h2><strong>{{ milestone.milestone_name }}</strong></h2>
+                            <p>{{ milestone.milestone_name }} means the following <span
+                                    style="text-decoration: underline;">are guaranteed</span>&nbsp;to
+                                be implemented.</p>
+                            {% if milestone.features %}
+                                <ul id='features_{{ milestone.id }}' class="big-list">
+                                    {% for feature in milestone.features.all %}
+                                        <li id="{{ feature.id }}">{{ feature.feature_name }}</li>
+                                    {% endfor %}
+                                </ul>
+                            {% endif %}
+                            <button class="btn btn-info btn-lg" type="button" data-toggle="modal"
+                                    data-target="#update-milestone" data-whatever="{{ milestone.milestone_name }}"
+                                    data="{{ milestone.id }}">Update Milestone
+                            </button>
+                        </div>
+                    </div>
+                </section>
+            {% endfor %}
+        {% endif %}
+
+
+    </main>
+
+    <div class="modal fade" role="dialog" tabindex="-1" id="update-milestone">
+        <div class="modal-dialog modal-dialog-centered modal-lg" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h2 class="modal-title"><strong>Update Pre-milestone 1</strong></h2>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span
+                            aria-hidden="true">×</span></button>
+                </div>
+                <div class="modal-body">
+                    <form>
+                        <div class="form-group"><textarea class="form-control form-control-lg"
+                                                          placeholder="ff"></textarea></div>
+                    </form>
+                </div>
+                <div class="modal-footer">
+                    <button class="btn btn-light" type="button" data-dismiss="modal">Close</button>
+                    <button class="btn btn-primary" id="save" data="{{ feature.id }}" type="button">Save</button>
+                </div>
+
+            </div>
+        </div>
+    </div>
+    <div class="modal fade" role="dialog" tabindex="-1" id="new-milestone">
+        <div class="modal-dialog modal-dialog-centered modal-lg" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h2 class="modal-title"><strong>New Milestone</strong></h2>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span
+                            aria-hidden="true">×</span></button>
+                </div>
+                <div class="modal-body">
+                    <form id="newMilestone">
+                        {% csrf_token %}
+                        <h2><strong>Basic Information</strong></h2>
+                        <div class="form-group"><input class="form-control form-control-lg" type="text" id="name"
+                                                       placeholder="Name of Milestone" required="" name="name">
+                            <p class="text-danger" id="name-validation"></p>
+                        </div>
+                        <h2><strong>Features</strong></h2>
+                        <div class="form-group" id="features"></div>
+                        <button class="btn btn-primary btn-lg" id="new-feature" type="button"><strong>Add
+                            Feature</strong></button>
+                    </form>
+                </div>
+                <div class="modal-footer">
+                    <button class="btn btn-light" type="button" data-dismiss="modal">Close</button>
+                    <button class="btn btn-primary" id="save-milestone" type="submit" data="{{ project.id }}">Save
+                    </button>
+                </div>
+
+            </div>
+        </div>
+    </div>
+{% endblock %}

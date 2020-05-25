@@ -1,0 +1,69 @@
+{% extends 'maincontent.html' %}
+
+{% block navbar %}
+    {% include 'auth/components/navbar.html' %}
+{% endblock %}
+{% load crispy_forms_tags %}
+
+{% block maincontent %}
+    <section id="header">
+        <div class="row">
+            <div class="col">
+                <h1><strong>RYU |</strong>&nbsp;Login<strong>&nbsp;&nbsp;</strong><span
+                        class="badge badge-danger" style="font-size: 34px;">Early Alpha</span>&nbsp;&nbsp;</h1>
+                <h3>Gain access to your account.&nbsp;</h3><span class="badge badge-primary"
+                                                                        style="font-size: 32px;"></span></div>
+        </div>
+    </section>
+    <hr>
+    <section id="client-login-form">
+        <div class="row">
+            <div class="col-xl-6">
+                <h3><strong>Don't have access? No Problem!</strong></h3>
+                <h4>All you need to do is click on "Options" and "Request Account" to request a new account.&nbsp;</h4>
+                <div class="alert alert-success" role="alert"><span style="font-size: 18px;">You will receive a confirmation email within 24 hours.<br></span>
+                </div>
+            </div>
+            <div class="col-xl-6 offset-xl-0">
+                <form method="post" action="{% url 'auth:login' %}">
+                    {% csrf_token %}
+
+                    {% if messages %}
+                        {% for message in messages %}
+                            <div class="alert alert-{{ message.tags }}" role="alert">
+                                {{ message }}
+                            </div>
+                        {% endfor %}
+                    {% endif %}
+                    {{ form |crispy }}
+                    <div class="form-group">
+                        <button class="btn btn-primary btn-block" type="submit">Login</button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </section>
+    <section id="information">
+        <div class="row">
+            <div class="col">
+                <h1 class="text-center"><strong>FAQs</strong></h1>
+                <div class="row">
+                    <div class="col-xl-6">
+                        <h3><strong>Q: Will I be billed extra for this service?</strong></h3>
+                        <p style="font-size: 21px;">If you are alright a client with RYU, you can use this service FREE
+                            of charge.&nbsp;</p>
+                    </div>
+                    <div class="col-xl-6">
+                        <h3><strong>Q:</strong>&nbsp;<strong>What will I have access to?</strong></h3>
+                        <p style="font-size: 21px;">With the client system, you will have the ability to view, cancel
+                            projects. You can also view your personalized "project proposals".</p>
+                    </div>
+                    <div class="col-xl-6">
+                        <h3><strong>Q: Will I be able to request new projects through this system?</strong></h3>
+                        <p style="font-size: 21px;">Yes. Just use the "Request new project" link</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+{% endblock %}

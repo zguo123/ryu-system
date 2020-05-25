@@ -1,0 +1,59 @@
+{% extends 'maincontent.html' %}
+
+{% block navbar %}
+    {% include 'dashboard/components/navbar.html' %}
+{% endblock %}
+{% load crispy_forms_tags %}
+
+{% block maincontent %}
+    <section id="header">
+        <div class="row">
+            <div class="col">
+                <h1><strong>RYU Client System |</strong>&nbsp;Project Proposal<strong>&nbsp;&nbsp;</strong><span
+                        class="badge badge-danger" style="font-size: 34px;">Early Alpha</span>&nbsp;&nbsp;</h1>
+                <h3>This page will display the project proposal, including a <strong>tenative </strong>schedule for your
+                    poject.</h3><span class="badge badge-primary" style="font-size: 32px;"></span>
+                <div class="alert alert-info" role="alert"><span><strong>Note: </strong>the features listed here are always subject to change.</span>
+                </div>
+            </div>
+        </div>
+    </section>
+    <hr>
+    <section id="project-header">
+        <div class="row">
+            <div class="col">
+                <h1><strong>{{ project.project_name }}</strong><br></h1>
+                <h3>Estimated Time of Completion: <strong>{% if not project.estimated_date_of_completion %} Unknown
+                {% else %}{{ project.estimated_date_of_completion }}{% endif %}</strong></h3>
+
+            </div>
+        </div>
+    </section>
+    <main id="milestones">
+
+        {% if project.milestones %}
+            {% for milestone in project.milestones.all %}
+                <section id="milestone_{{ milestone.id }}">
+                    <div class="row">
+                        <div class="col">
+                            <h2><strong>{{ milestone.milestone_name }}</strong></h2>
+                            <p>{{ milestone.milestone_name }} means the following <span
+                                    style="text-decoration: underline;">are guaranteed</span>&nbsp;to
+                                be implemented.</p>
+                            {% if milestone.features %}
+                                <ul class="big-list">
+                                    {% for feature in milestone.features.all %}
+                                        <li>{{ feature.feature_name }}{% if feature.completed %}
+                                            &nbsp;
+                                            <span class="badge badge-success" style="font-size: 20px;font-weight: 100">Completed</span>
+                                        {% endif %}</li>
+                                    {% endfor %}
+                                </ul>
+                            {% endif %}
+                        </div>
+                    </div>
+                </section>
+            {% endfor %}
+        {% endif %}
+    </main>
+{% endblock %}

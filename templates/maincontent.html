@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, shrink-to-fit=no">
+    <title>{{ title }}</title>
+    {% load static %}
+    <link rel="stylesheet" href="{% static 'bootstrap/css/bootstrap.min.css' %}">
+    <link rel="stylesheet" href="{% static 'css/Kollektif%20Bold.css' %}">
+    <link rel="stylesheet" href="{% static 'css/Kollektif%20Bold%20Italic.css' %}">
+    <link rel="stylesheet" href="{% static 'css/Kollektif%20Italic.css' %}">
+    <link rel="stylesheet" href="{% static 'css/Kollektif%20Regular.css' %}">
+    <link rel="stylesheet" href="{% static 'css/Footer-Basic.css' %}">
+    <link rel="stylesheet" href="{% static 'css/Navigation-Clean.css' %}">
+    <link rel="stylesheet" href="{% static 'css/Projects-Horizontal.css' %}">
+    <link rel="stylesheet" href="{% static 'css/styles.css' %}">
+</head>
+<body>
+    {% block navbar %}
+    {% endblock %}
+    <div class="container header">
+        {% block maincontent %}
+        {% endblock %}
+    </div>
+
+    {% load static %}
+    <script src="{% static 'js/jquery.min.js' %}"></script>
+    <script src="{% static 'bootstrap/js/bootstrap.min.js' %}"></script>
+    <script type="text/javascript" charset="UTF-8" src="{% static 'js/functions.js' %}"></script>
+</body>
+</html>

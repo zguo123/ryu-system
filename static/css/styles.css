@@ -1,0 +1,39 @@
+.container.header {
+  margin-top: 96px;
+}
+
+body {
+  font-family: 'Kollektif';
+}
+
+.btn.btn-primary {
+}
+
+.container-fluid.header {
+  margin-top: 99px;
+}
+
+section {
+  margin-bottom: 25px;
+}
+
+.big-list {
+  font-size: 22px;
+}
+
+.alert span {
+  font-size: 23px;
+}
+
+p {
+  font-size: 20px;
+}
+
+.features {
+  resize: none;
+}
+
+p {
+  font-size: 24px;
+}
+

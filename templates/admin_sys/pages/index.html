@@ -1,0 +1,59 @@
+{% extends 'maincontent.html' %}
+
+{% block navbar %}
+    {% include 'admin_sys/components/navbar.html' %}
+{% endblock %}
+{% load crispy_forms_tags %}
+
+{% block maincontent %}
+    <section id="header">
+        <div class="row">
+            <div class="col">
+                <h1><strong>RYU Admin System&nbsp;&nbsp;</strong><span class="badge badge-danger"
+                                                                       style="font-size: 34px;">Early Alpha</span>&nbsp;&nbsp;
+                </h1>
+                <h3>Welcome to RYU's Admin System. Here, you can <strong>approve </strong>account requests, modify
+                    progress.&nbsp;</h3><span class="badge badge-primary" style="font-size: 32px;"></span></div>
+        </div>
+    </section>
+    <hr>
+    <div class="row">
+        <div class="col">
+            <h1><strong>Active Projects</strong></h1>
+
+        </div>
+    </div>
+    <section id="projects">
+        <div class="row">
+            {% if projects %}
+                {% for project in projects %}
+                    <div class="col-xl-4" id='{{ project.id }}'>
+                        <div class="card">
+                            <div class="card-body">
+                                <h4 class="card-title">{{ project.project_name }}</h4>
+                                <h5 class="card-subtitle">Requested by: {{ project.request_user }} at {{ project.date_requested }}</h5>
+                                <a class="btn btn-primary" role="button"
+                                   href="{% url 'controller:update_progress' project.id %}">Update
+                                    Progress</a></div>
+                        </div>
+
+                    </div>
+                {% endfor %}
+                {% else %}
+                 <div class="col-xl-4">
+                        <div class="card">
+                            <div class="card-body">
+                                <h4 class="card-title">No new projects!</h4>
+                                 <h5>Click on "New Project" to create a project"</h5>
+                            </div>
+                        </div>
+
+                    </div>
+            {% endif %}
+        </div>
+    </section>
+
+
+
+
+{% endblock %}

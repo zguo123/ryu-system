@@ -1,0 +1,59 @@
+{% extends 'maincontent.html' %}
+
+{% block navbar %}
+    {% include 'dashboard/components/navbar.html' %}
+{% endblock %}
+{% load crispy_forms_tags %}
+
+{% block maincontent %}
+    <section id="header">
+        <div class="row">
+            <div class="col">
+                <h1><strong>RYU Client System&nbsp;&nbsp;</strong><span class="badge badge-danger"
+                                                                        style="font-size: 34px;">Early Alpha</span>&nbsp;&nbsp;
+                </h1>
+                <h3>Welcome to RYU's Client System. Here, you can check your development status for your projects. You
+                    will also have the option to cancel your applications.&nbsp;</h3>
+                <div class="alert alert-danger" role="alert"><span
+                        style="font-size: 23px;">You must contact Ryan if you want to request or delete a project. At this point,
+                you are <strong>unable</strong> to request or delete a project from this system.</span>
+                </div>
+                <span class="badge badge-primary" style="font-size: 32px;"></span></div>
+        </div>
+    </section>
+    <hr>
+    <div class="row">
+        <div class="col">
+            <h1><strong>My Active Projects</strong></h1>
+            <div class="alert alert-info" role="alert"><span style="font-size: 23px;"><strong>Note:</strong>&nbsp;There are two additional blank spaces for the purposes of placeholder. These are not functional.</span>
+            </div>
+        </div>
+    </div>
+    <section id="projects">
+        <div class="row">
+            {% if projects %}
+                {% for project in projects %}
+                    <div class="col-xl-4" id='{{ project.id }}'>
+                        <div class="card">
+                            <div class="card-body">
+                                <h4 class="card-title">{{ project.project_name }}</h4>
+
+                                <a class="btn btn-primary" role="button"
+                                   href="{% url 'main:view_progress' project.id %}">View Progress</a></div>
+                        </div>
+
+                    </div>
+                {% endfor %}
+            {% else %}
+                <div class="col-xl-4">
+                    <div class="card">
+                        <div class="card-body">
+                            <h4 class="card-title">No new projects!</h4>
+                            <h5>You have no newly created projects for {{ request.user.username }}</h5>
+                        </div>
+                    </div>
+
+                </div>
+            {% endif %}
+        </div>
+{% endblock %}
