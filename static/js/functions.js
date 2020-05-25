@@ -173,9 +173,8 @@
             $('*[id*=featuremi_create]:visible').each(function () {
                 let value = $(this).val();
                 if (value.trim() != '') {
-                    $("#" + list_name).append("<li>" + value + "</li>")
+                    features.push(value)
                 }
-                features.push(value)
             });
 
             $.ajax({
